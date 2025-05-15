@@ -71,12 +71,12 @@ public class Loan {
         this.installmentNumber = installmentNumber;
     }
 
-    public Boolean getPaid() {
+    public Boolean getIsPaid() {
         return isPaid;
     }
 
-    public void setPaid(Boolean paid) {
-        isPaid = paid;
+    public void setIsPaid(Boolean isPaid) {
+        this.isPaid = isPaid;
     }
 
     public LocalDateTime getCreatedAt() {

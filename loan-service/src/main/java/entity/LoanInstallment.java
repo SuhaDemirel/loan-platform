@@ -27,7 +27,7 @@ import java.util.List;
     private Double amount;
 
     @Column(name = "paid_amount", nullable = false)
-    private Integer paidAmount;
+    private Double paidAmount;
 
     @Column(name = "is_paid", nullable = false)
     private Boolean isPaid;
@@ -35,7 +35,7 @@ import java.util.List;
     @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;
 
-    @Column(name = "payment_date", nullable = false)
+    @Column(name = "payment_date", nullable = true)
     private LocalDate paymentDate;
 
     @Column(name = "created_at", nullable = false)
@@ -71,20 +71,20 @@ import java.util.List;
         this.amount = amount;
     }
 
-    public Integer getPaidAmount() {
+    public Double getPaidAmount() {
         return paidAmount;
     }
 
-    public void setPaidAmount(Integer paidAmount) {
+    public void setPaidAmount(Double paidAmount) {
         this.paidAmount = paidAmount;
     }
 
-    public Boolean getPaid() {
+    public Boolean getIsPaid() {
         return isPaid;
     }
 
-    public void setPaid(Boolean paid) {
-        isPaid = paid;
+    public void setIsPaid(Boolean isPaid) {
+        this.isPaid = isPaid;
     }
 
     public LocalDate getDueDate() {

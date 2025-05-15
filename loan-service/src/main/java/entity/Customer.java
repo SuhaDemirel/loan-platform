@@ -96,4 +96,8 @@ public class Customer {
     public void setLastUpdatedBy(Long last_updated_by) {
         this.lastUpdatedBy = last_updated_by;
     }
+
+    public Double getAvailableCreditLimit() {
+        return getCreditLimit() - getUsedCreditLimit();
+    }
 }
