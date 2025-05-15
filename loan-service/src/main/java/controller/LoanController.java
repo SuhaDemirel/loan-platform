@@ -1,6 +1,8 @@
 package controller;
 
+import controller.request.CreateLoanRequest;
 import entity.Loan;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +22,8 @@ public class LoanController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Loan> createLoan(@RequestBody Loan loan) {
-        return ResponseEntity.ok(loanService.createLoan(loan));
+    public ResponseEntity<Loan> createLoan(@Valid @RequestBody CreateLoanRequest createLoanRequest) {
+        return ResponseEntity.ok(loanService.createLoan(createLoanRequest));
     }
 
     @GetMapping("/customers/{customerId}")
