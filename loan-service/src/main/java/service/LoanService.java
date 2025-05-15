@@ -4,8 +4,7 @@ import controller.request.CreateLoanRequest;
 import entity.Customer;
 import entity.Loan;
 import entity.LoanInstallment;
-import exception.CustomerNotFoundException;
-import exception.InsufficientAvailableLimitException;
+import exception.*;
 import org.springframework.stereotype.Service;
 import repository.CustomerRepository;
 import repository.LoanInstallmentRepository;
@@ -79,14 +78,17 @@ public class LoanService {
         return loanInstallmentRepository.getLoanInstallmentsByLoanId(loanId);
     }
 
-
-    /*
-    public void payLoan(Long customerId, Long LoanId, Double paymentAmount) {
-        Loan loan = loanRepository.findById(LoanId).orElseThrow();
-        if (paymentAmount < loan.getAmount() / loan.getInstallmentNumber())
-            throw new RuntimeException();
-        List<LoanInstallment> installments = loanInstallmentRepository.findByLoanId(loan.getId())
-    }*/
+    public Loan payLoan(Long loanId, Double paymentAmount) {
+        Loan loan = loanRepository.findById(loanId).orElseThrow(() -> new LoanNotFoundException("Loan not found"));
+        List<LoanInstallment> unpaidInstallments = loanInstallmentRepository.getLoanInstallmentsByLoanIdOrderByDueDate(loanId).stream().filter(loanInstallment -> loanInstallment.getIsPaid().equals(FALSE)).toList();
+        if (unpaidInstallments.isEmpty()) {
+            throw new LoanUnpaidInstallmentNotFoundException("No un-paid installments found");
+        }
+        if (paymentAmount < unpaidInstallments.getFirst().getAmount()) {
+            throw new InsufficientAmountException("The payment amount should be equal or higher than the installment amount.");
+        }
+        return loan;
+    }
 
     private static Double calculateFinalPaymentAmount(Double requestedAmount, Double interestRate) {
         double result = requestedAmount * (1 + interestRate);

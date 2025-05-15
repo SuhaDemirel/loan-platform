@@ -11,4 +11,6 @@ import java.util.List;
 public interface LoanInstallmentRepository extends JpaRepository<LoanInstallment, Long> {
 
     List<LoanInstallment> getLoanInstallmentsByLoanId(Long loanId);
+
+    List<LoanInstallment> getLoanInstallmentsByLoanIdOrderByDueDate(Long loanId);
 }
