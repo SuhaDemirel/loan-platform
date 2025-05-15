@@ -1,0 +1,8 @@
+/Users/suhademirel/Desktop/projects/loan-platform/loan-service/src/main/java/com/personalProject/personal_project/LoanServiceApplication.java
+/Users/suhademirel/Desktop/projects/loan-platform/loan-service/src/main/java/controller/GlobalExceptionHandler.java
+/Users/suhademirel/Desktop/projects/loan-platform/loan-service/src/main/java/controller/LoanController.java
+/Users/suhademirel/Desktop/projects/loan-platform/loan-service/src/main/java/entity/Customer.java
+/Users/suhademirel/Desktop/projects/loan-platform/loan-service/src/main/java/entity/Loan.java
+/Users/suhademirel/Desktop/projects/loan-platform/loan-service/src/main/java/entity/LoanInstallment.java
+/Users/suhademirel/Desktop/projects/loan-platform/loan-service/src/main/java/repository/LoanRepository.java
+/Users/suhademirel/Desktop/projects/loan-platform/loan-service/src/main/java/service/LoanService.java

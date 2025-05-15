@@ -18,4 +18,26 @@ public class LoanController {
     public LoanController(LoanService loanService) {
         this.loanService = loanService;
     }
+
+    @PostMapping("/create")
+    public ResponseEntity<Loan> createLoan(@RequestBody Loan loan) {
+        return ResponseEntity.ok(loanService.createLoan(loan));
+    }
+
+    @GetMapping("/customers/{customerId}")
+    public ResponseEntity<List<Loan>> listCustomerLoans(@PathVariable("customerId") Long customerId) {
+        return ResponseEntity.ok(loanService.getLoansByCustomerId(customerId));
+    }
+
+    /*
+    @GetMapping("/{id}/installments")
+    public ResponseEntity<Loan> listInstallments(@PathVariable("id") Long loanId) {
+        return ResponseEntity.ok(loanService.getInstallments(loanId);
+    }
+
+    @PostMapping("/{id}/pay")
+    public ResponseEntity<Loan> createLoan(@PathVariable("id") Long loanId, @RequestBody LoanPaymentRequestBody request) {
+        return ResponseEntity.ok(loanService.doPayment(loanId, request);
+    }
+     */
 }

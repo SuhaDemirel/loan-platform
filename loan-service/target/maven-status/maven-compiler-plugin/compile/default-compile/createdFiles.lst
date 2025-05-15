@@ -1,0 +1,8 @@
+repository/LoanRepository.class
+entity/Loan.class
+controller/LoanController.class
+service/LoanService.class
+entity/Customer.class
+controller/GlobalExceptionHandler.class
+entity/LoanInstallment.class
+com/personalProject/personal_project/LoanServiceApplication.class

@@ -16,7 +16,6 @@
 
     <modules>
         <module>loan-service</module>
-        <module>security-service</module>
     </modules>
     <properties>
         <java.version>21</java.version>
