@@ -1,6 +1,7 @@
 package service;
 
 import controller.request.CreateLoanRequest;
+import dto.PayLoanResultDto;
 import entity.Customer;
 import entity.Loan;
 import entity.LoanInstallment;
@@ -16,8 +17,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 @Service
 public class LoanService {
@@ -78,17 +81,44 @@ public class LoanService {
         return loanInstallmentRepository.getLoanInstallmentsByLoanId(loanId);
     }
 
-    public Loan payLoan(Long loanId, Double paymentAmount) {
-        Loan loan = loanRepository.findById(loanId).orElseThrow(() -> new LoanNotFoundException("Loan not found"));
-        List<LoanInstallment> unpaidInstallments = loanInstallmentRepository.getLoanInstallmentsByLoanIdOrderByDueDate(loanId).stream().filter(loanInstallment -> loanInstallment.getIsPaid().equals(FALSE)).toList();
-        if (unpaidInstallments.isEmpty()) {
-            throw new LoanUnpaidInstallmentNotFoundException("No un-paid installments found");
+    /*
+    public PayLoanResultDto payLoan(Long loanId, double paymentAmount) {
+        Loan loan = loanRepository.findById(loanId)
+                .orElseThrow(() -> new LoanNotFoundException("Loan not found"));
+
+        List<LoanInstallment> unpaidInstallments = loanInstallmentRepository
+                .findByLoanIdAndIsPaidFalseOrderByDueDateAsc(loanId);
+
+        List<LoanInstallment> payableInstallments = unpaidInstallments.stream()
+                .filter(i -> i.getDueDate().isBefore(LocalDate.now().plusMonths(3).withDayOfMonth(1)))
+                .collect(Collectors.toList());
+
+        double totalPaid = 0;
+        int count = 0;
+
+        for (LoanInstallment inst : payableInstallments) {
+            if (paymentAmount >= inst.getAmount()) {
+                inst.setIsPaid(TRUE);
+                inst.setPaymentDate(LocalDate.now());
+                loanInstallmentRepository.save(inst);
+
+                paymentAmount -= inst.getAmount();
+                totalPaid += inst.getAmount();
+                count++;
+            } else {
+                break;
+            }
         }
-        if (paymentAmount < unpaidInstallments.getFirst().getAmount()) {
-            throw new InsufficientAmountException("The payment amount should be equal or higher than the installment amount.");
+
+        boolean fullyPaid = loanInstallmentRepository.countByLoanIdAndIsPaidFalse(loanId) == 0;
+        if (fullyPaid) {
+            loan.setIsPaid(true);
+            loanRepository.save(loan);
         }
-        return loan;
+
+        return new PayLoanResultDto(count, totalPaid, fullyPaid);
     }
+*/
 
     private static Double calculateFinalPaymentAmount(Double requestedAmount, Double interestRate) {
         double result = requestedAmount * (1 + interestRate);

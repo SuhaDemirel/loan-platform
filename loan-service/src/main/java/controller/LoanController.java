@@ -1,6 +1,7 @@
 package controller;
 
 import controller.request.CreateLoanRequest;
+import dto.PayLoanResultDto;
 import entity.Loan;
 import entity.LoanInstallment;
 import jakarta.validation.Valid;
@@ -40,9 +41,12 @@ public class LoanController {
         return ResponseEntity.ok(loanService.getLoanInstallmentsByLoanId(loanId));
     }
 
+    /*
     @PostMapping("/{id}/pay")
-    public ResponseEntity<Loan> createLoan(@PathVariable("id") Long loanId,
-                                           @RequestParam @NotNull @Positive Double amount) {
-        return ResponseEntity.ok(loanService.payLoan(loanId, amount));
+    public ResponseEntity<PayLoanResultDto> createLoan(@PathVariable("id") Long loanId,
+                                                       @RequestParam @NotNull @Positive Double amount) {
+        // return ResponseEntity.ok(loanService.payLoan(loanId, amount));
     }
+
+     */
 }
